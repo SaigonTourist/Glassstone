@@ -1,27 +1,27 @@
 const Contenedor = ({ titulo, mensaje, children, className = "" }) => {
   return (
-    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ${className}`}>
+    <div className={`container ${className}`}>
       {/* Header del contenedor */}
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+      <div className="container-header">
+        <h2 className="container-title">
           {titulo || "Bienvenido a Glasstone"}
         </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="container-message">
           {mensaje || "Descubre nuestra colección exclusiva de productos de alta calidad"}
         </p>
       </div>
 
       {/* Contenido del contenedor */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <div className="container-content">
         {children || (
-          <div className="text-center py-16">
-            <div className="w-24 h-24 bg-gray-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span className="text-4xl">🛒</span>
+          <div className="placeholder">
+            <div className="placeholder-icon">
+              🛒
             </div>
-            <h3 className="text-xl font-medium text-gray-900 mb-2">
+            <h3 className="placeholder-title">
               Catálogo de Productos
             </h3>
-            <p className="text-gray-500">
+            <p className="placeholder-text">
               Aquí se mostrarán los productos de tu tienda
             </p>
           </div>
