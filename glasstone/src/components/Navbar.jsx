@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,17 +42,17 @@ const Navbar = () => {
         <div className="nav-icons">
           {/* Search */}
           <button className="icon-btn">
-            🔍
+            <Search size={20} />
           </button>
 
           {/* User */}
           <button className="icon-btn">
-            👤
+            <User size={20} />
           </button>
 
           {/* Cart Widget */}
           <button className="icon-btn cart-badge">
-            🛒
+            <ShoppingCart size={20} />
             {cartItems > 0 && (
               <span className="cart-count">
                 {cartItems}
@@ -65,7 +66,7 @@ const Navbar = () => {
             className="icon-btn"
             style={{ display: 'block' }}
           >
-            {isMenuOpen ? '✕' : '☰'}
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>

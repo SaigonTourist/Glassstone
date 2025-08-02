@@ -1,3 +1,5 @@
+import { ShoppingCart } from 'lucide-react';
+
 const Contenedor = ({ titulo, mensaje, children, className = "" }) => {
   return (
     <div className={`container ${className}`}>
@@ -16,7 +18,7 @@ const Contenedor = ({ titulo, mensaje, children, className = "" }) => {
         {children || (
           <div className="placeholder">
             <div className="placeholder-icon">
-              🛒
+              <ShoppingCart size={48} color="#6b7280" />
             </div>
             <h3 className="placeholder-title">
               Catálogo de Productos
