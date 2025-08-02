@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Contenedor from '../components/Contenedor';
+import Navbar from './components/Navbar.jsx';
+import Contenedor from './components/Contenedor.jsx';
 
 const App = () => {
   return (
