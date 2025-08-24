@@ -131,7 +131,7 @@ const ItemDetail = ({ product, loading }) => {
         </Link>
         <span className="breadcrumb-separator-premium">›</span>
         <Link to={`/category/${product.category}`} className="breadcrumb-link-premium">
-          {product.category === 'tecnologia' ? 'Tecnología' : 'Deportes'}
+          {product.category === 'tecnologia' ? 'Tecnología' : 'Indumentaria'}
         </Link>
         <span className="breadcrumb-separator-premium">›</span>
         <span className="breadcrumb-current-premium">{product.title}</span>
@@ -144,7 +144,12 @@ const ItemDetail = ({ product, loading }) => {
             <img src={productImages[selectedImage]} alt={product.title} />
             <div className="image-overlay">
               <button className="favorite-btn-premium" onClick={toggleFavorite}>
-                <Heart size={24} fill={isFavorite ? '#ef4444' : 'none'} color={isFavorite ? '#ef4444' : '#fff'} />
+                <Heart 
+                  size={20} 
+                  fill={isFavorite ? '#111827' : 'none'} 
+                  color={isFavorite ? '#111827' : '#6b7280'}
+                  strokeWidth={2}
+                />
               </button>
               <button className="share-btn-premium" onClick={handleShare}>
                 <Share2 size={20} color="#fff" />

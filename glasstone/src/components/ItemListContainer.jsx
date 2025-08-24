@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProducts, getProductsByCategory, getCategories } from '../data/products';
+import { getProducts, getProductsByCategory, getSaleProducts, getCategories } from '../data/products';
 import ItemList from './ItemList';
 import Contenedor from './Contenedor';
 
@@ -17,7 +17,9 @@ const ItemListContainer = () => {
     const loadProducts = async () => {
       try {
         let productsData;
-        if (categoryId) {
+        if (categoryId === 'ofertas') {
+          productsData = await getSaleProducts();
+        } else if (categoryId) {
           productsData = await getProductsByCategory(categoryId);
         } else {
           productsData = await getProducts();
@@ -48,19 +50,19 @@ const ItemListContainer = () => {
   const getTitle = () => {
     if (categoryId) {
       const category = categories.find(cat => cat.id === categoryId);
-      return category ? `Categoría: ${category.name}` : 'Categoría';
+      return category ? `${category.name}` : 'Categoría';
     }
-    return 'Todos los Productos';
+    return 'Equipamiento de Alpinismo';
   };
 
   const getMessage = () => {
     if (categoryId) {
       const category = categories.find(cat => cat.id === categoryId);
       return category 
-        ? `Explora nuestra selección de ${category.name.toLowerCase()} (${category.count} productos)`
-        : 'Productos filtrados por categoría';
+        ? `${category.description} (${category.count} productos disponibles)`
+        : 'Productos especializados para alpinismo profesional';
     }
-    return `Descubre nuestra colección completa de ${products.length} productos`;
+    return `Equipamiento técnico profesional para alpinismo y alta montaña (${products.length} productos)`;
   };
 
   return (

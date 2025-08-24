@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 const ItemCard = ({ product }) => {
   return (
     <div className="product-card">
+      {product.onSale && (
+        <div className="sale-badge">
+          -{product.discount}% OFF
+        </div>
+      )}
+      
       <div className="product-image-container">
         <img 
           src={product.image} 
@@ -21,7 +27,12 @@ const ItemCard = ({ product }) => {
         </p>
         
         <div className="product-footer">
-          <div className="product-price">${product.price}</div>
+          <div className="product-price-container">
+            {product.onSale && product.originalPrice && (
+              <div className="original-price">${product.originalPrice}</div>
+            )}
+            <div className="product-price">${product.price}</div>
+          </div>
           <div className="product-stock">Stock: {product.stock}</div>
         </div>
         

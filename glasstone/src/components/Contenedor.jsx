@@ -3,17 +3,17 @@ import { ShoppingCart } from 'lucide-react';
 const Contenedor = ({ titulo, mensaje, children, className = "" }) => {
   return (
     <div className={`container ${className}`}>
-      {/* Header del contenedor */}
+      {/* Header */}
       <div className="container-header">
         <h2 className="container-title">
-          {titulo || "Bienvenido a Glasstone"}
+          {titulo || "Glasstone - Alpinismo Profesional"}
         </h2>
         <p className="container-message">
-          {mensaje || "Descubre nuestra colección exclusiva de productos de alta calidad"}
+          {mensaje || "Equipamiento técnico de alta calidad para alpinistas profesionales y expediciones de montaña"}
         </p>
       </div>
 
-      {/* Contenido del contenedor */}
+      {/* Contenido */}
       <div className="container-content">
         {children || (
           <div className="placeholder">

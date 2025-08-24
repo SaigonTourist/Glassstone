@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [cartItems] = useState(3);
+  const [cartItems] = useState(5);
   const location = useLocation();
-  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -26,7 +25,6 @@ const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      // Por ahora solo mostramos una alerta, después implementaremos búsqueda real
       alert(`Buscando: "${searchTerm}"`);
       console.log(`Búsqueda: ${searchTerm}`);
       setSearchTerm('');
@@ -35,15 +33,13 @@ const Navbar = () => {
   };
 
   const handleUserClick = () => {
-    // Por ahora solo mostramos una alerta, después implementaremos autenticación
-    alert('Función de usuario próximamente disponible');
-    console.log('Acceso a perfil de usuario');
+    alert('¡Hiciste click en usuario! 👤');
+    console.log('Usuario clickeado');
   };
 
   const handleCartClick = () => {
-    // Por ahora solo mostramos una alerta, después implementaremos carrito real
-    alert(`Tienes ${cartItems} productos en el carrito`);
-    console.log('Acceso al carrito');
+    alert(`¡Carrito clickeado! Tienes ${cartItems} productos 🛒`);
+    console.log('Carrito clickeado');
   };
 
   const isActiveLink = (path) => {
@@ -60,7 +56,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Desktop Navigation Links */}
+        
         <div className="nav-links">
           <Link 
             to="/" 
@@ -77,34 +73,38 @@ const Navbar = () => {
             Tecnología
           </Link>
           <Link 
-            to="/category/deportes" 
+            to="/category/indumentaria" 
             className="nav-link" 
-            style={{ color: isActiveLink('/category/deportes') ? '#111827' : '#6b7280' }}
+            style={{ color: isActiveLink('/category/indumentaria') ? '#111827' : '#6b7280' }}
           >
-            Deportes
+            Indumentaria
           </Link>
-          <a href="#" className="nav-link" style={{ color: '#6b7280' }}>
+          <Link 
+            to="/category/ofertas" 
+            className="nav-link" 
+            style={{ color: isActiveLink('/category/ofertas') ? '#111827' : '#6b7280' }}
+          >
             Ofertas
-          </a>
+          </Link>
           <a href="#" className="nav-link" style={{ color: '#6b7280' }}>
             Contacto
           </a>
         </div>
 
-        {/* Right side icons */}
+        {/* Icons */}
         <div className="nav-icons">
-          {/* Search */}
-          <button className="icon-btn">
+          {/* Buscar */}
+          <button className="icon-btn" onClick={toggleSearch}>
             <Search size={20} />
           </button>
 
           {/* User */}
-          <button className="icon-btn">
+          <button className="icon-btn" onClick={handleUserClick}>
             <User size={20} />
           </button>
 
-          {/* Cart Widget */}
-          <button className="icon-btn cart-badge">
+          {/* Carrito */}
+          <button className="icon-btn cart-badge" onClick={handleCartClick}>
             <ShoppingCart size={20} />
             {cartItems > 0 && (
               <span className="cart-count">
@@ -113,7 +113,7 @@ const Navbar = () => {
             )}
           </button>
 
-          {/* Mobile menu button */}
+          {/* Mobile boton */}
           <button
             onClick={toggleMenu}
             className="icon-btn"
@@ -124,13 +124,39 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Search Bar */}
+      {isSearchOpen && (
+        <div className="search-bar">
+          <form onSubmit={handleSearch} className="search-form">
+            <input
+              id="search-input"
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Buscar productos..."
+              className="search-input"
+            />
+            <button type="submit" className="search-submit">
+              <Search size={18} />
+            </button>
+            <button 
+              type="button" 
+              onClick={toggleSearch}
+              className="search-close"
+            >
+              <X size={18} />
+            </button>
+          </form>
+        </div>
+      )}
+
       {/* Mobile menu */}
       {isMenuOpen && (
         <div className="mobile-menu">
           <Link to="/" onClick={() => setIsMenuOpen(false)}>Inicio</Link>
           <Link to="/category/tecnologia" onClick={() => setIsMenuOpen(false)}>Tecnología</Link>
-          <Link to="/category/deportes" onClick={() => setIsMenuOpen(false)}>Deportes</Link>
-          <a href="#" onClick={() => setIsMenuOpen(false)}>Ofertas</a>
+          <Link to="/category/indumentaria" onClick={() => setIsMenuOpen(false)}>Indumentaria</Link>
+          <Link to="/category/ofertas" onClick={() => setIsMenuOpen(false)}>Ofertas</Link>
           <a href="#" onClick={() => setIsMenuOpen(false)}>Contacto</a>
         </div>
       )}
