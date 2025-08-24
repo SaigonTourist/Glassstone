@@ -124,7 +124,6 @@ const products = [
   }
 ];
 
-// Simular llamada async a API
 export const getProducts = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -161,7 +160,77 @@ export const getSaleProducts = () => {
   });
 };
 
-// Categorías únicas
+// Busqueda de productos
+
+export const searchProducts = (searchTerm) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (!searchTerm || searchTerm.trim() === '') {
+        resolve([]);
+        return;
+      }
+
+      const term = searchTerm.toLowerCase().trim();
+      
+      const filteredProducts = products.filter(product => {
+        // Buscar título
+        const titleMatch = product.title.toLowerCase().includes(term);
+        
+        // Buscar descripción
+        const descriptionMatch = product.description.toLowerCase().includes(term);
+        
+        // Buscar características
+        const featuresMatch = product.features && 
+          product.features.some(feature => feature.toLowerCase().includes(term));
+        
+        // Buscar términos específicos (medio choto)
+        const specificMatches = (
+          // GPS/Garmin
+          (term.includes('gps') || term.includes('garmin')) && product.id === 1 ||
+          // Altímetro/Suunto  
+          (term.includes('altimetro') || term.includes('suunto') || term.includes('reloj')) && product.id === 2 ||
+          // Radio/Motorola
+          (term.includes('radio') || term.includes('motorola') || term.includes('comunicacion')) && product.id === 3 ||
+          // Detector/Avalancha/Ortovox
+          (term.includes('detector') || term.includes('avalancha') || term.includes('ortovox') || term.includes('arva')) && product.id === 4 ||
+          // Chaqueta/Arc'teryx
+          (term.includes('chaqueta') || term.includes('arcteryx') || term.includes('arc') || term.includes('alpha')) && product.id === 5 ||
+          // Pantalón/Patagonia
+          (term.includes('pantalon') || term.includes('patagonia') || term.includes('triolet')) && product.id === 6 ||
+          // Botas/La Sportiva
+          (term.includes('bota') || term.includes('sportiva') || term.includes('la sportiva')) && product.id === 7 ||
+          // Guantes/Black Diamond
+          (term.includes('guante') || term.includes('diamond') || term.includes('black')) && product.id === 8 ||
+          // Casco/Petzl
+          (term.includes('casco') || term.includes('petzl') || term.includes('meteor')) && product.id === 9 ||
+          // Mochila/Osprey
+          (term.includes('mochila') || term.includes('osprey') || term.includes('mutant')) && product.id === 10
+        );
+        
+        // Buscar por categoría
+        const categoryMatch = (
+          (term.includes('tecnologia') || term.includes('tech')) && product.category === 'tecnologia' ||
+          (term.includes('indumentaria') || term.includes('ropa') || term.includes('vestimenta')) && product.category === 'indumentaria'
+        );
+        
+        return titleMatch || descriptionMatch || featuresMatch || specificMatches || categoryMatch;
+      });
+
+      const sortedProducts = filteredProducts.sort((a, b) => {
+        const aTitle = a.title.toLowerCase().includes(term);
+        const bTitle = b.title.toLowerCase().includes(term);
+        
+        if (aTitle && !bTitle) return -1;
+        if (!aTitle && bTitle) return 1;
+        return 0;
+      });
+
+      console.log(`Búsqueda: "${term}" - Resultados: ${sortedProducts.length}`);
+      resolve(sortedProducts);
+    }, 400);
+  });
+};
+
 export const getCategories = () => {
   return new Promise((resolve) => {
     setTimeout(() => {

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import ItemListContainer from './components/ItemListContainer.jsx';
 import ItemDetailContainer from './components/ItemDetailContainer.jsx';
+import SearchResults from './components/SearchResults.jsx';
 
 // Componente para página 404
 const NotFound = () => {
@@ -39,6 +40,9 @@ const App = () => {
           
           {/* Ruta para categorías - productos filtrados */}
           <Route path="/category/:categoryId" element={<ItemListContainer />} />
+          
+          {/* Ruta para búsqueda */}
+          <Route path="/search/:searchTerm" element={<SearchResults />} />
           
           {/* Ruta para detalle de producto */}
           <Route path="/item/:id" element={<ItemDetailContainer />} />

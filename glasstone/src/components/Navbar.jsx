@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
 
 const Navbar = () => {
@@ -8,6 +8,7 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cartItems] = useState(5);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,27 +20,31 @@ const Navbar = () => {
       setTimeout(() => {
         document.getElementById('search-input')?.focus();
       }, 100);
+    } else {
+      setSearchTerm('');
     }
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchTerm.trim()) {
-      alert(`Buscando: "${searchTerm}"`);
-      console.log(`Búsqueda: ${searchTerm}`);
+    const term = searchTerm.trim();
+    
+    if (term) {
+      navigate(`/search/${encodeURIComponent(term)}`);
       setSearchTerm('');
       setIsSearchOpen(false);
+    } else {
+      alert('Por favor ingresa un término de búsqueda');
+      document.getElementById('search-input')?.focus();
     }
   };
 
   const handleUserClick = () => {
     alert('¡Hiciste click en usuario! 👤');
-    console.log('Usuario clickeado');
   };
 
   const handleCartClick = () => {
     alert(`¡Carrito clickeado! Tienes ${cartItems} productos 🛒`);
-    console.log('Carrito clickeado');
   };
 
   const isActiveLink = (path) => {
@@ -49,14 +54,12 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="nav-container">
-        {/* Logo */}
         <div>
           <Link to="/" className="logo">
             Glass<span className="logo-accent">tone</span>
           </Link>
         </div>
 
-        
         <div className="nav-links">
           <Link 
             to="/" 
@@ -91,19 +94,15 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* Icons */}
         <div className="nav-icons">
-          {/* Buscar */}
           <button className="icon-btn" onClick={toggleSearch}>
             <Search size={20} />
           </button>
 
-          {/* User */}
           <button className="icon-btn" onClick={handleUserClick}>
             <User size={20} />
           </button>
 
-          {/* Carrito */}
           <button className="icon-btn cart-badge" onClick={handleCartClick}>
             <ShoppingCart size={20} />
             {cartItems > 0 && (
@@ -113,7 +112,6 @@ const Navbar = () => {
             )}
           </button>
 
-          {/* Mobile boton */}
           <button
             onClick={toggleMenu}
             className="icon-btn"
@@ -124,7 +122,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Search Bar */}
       {isSearchOpen && (
         <div className="search-bar">
           <form onSubmit={handleSearch} className="search-form">
@@ -133,8 +130,14 @@ const Navbar = () => {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Buscar productos..."
+              placeholder="Buscar GPS, chaquetas, botas, cascos..."
               className="search-input"
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') {
+                  setIsSearchOpen(false);
+                  setSearchTerm('');
+                }
+              }}
             />
             <button type="submit" className="search-submit">
               <Search size={18} />
@@ -150,7 +153,6 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Mobile menu */}
       {isMenuOpen && (
         <div className="mobile-menu">
           <Link to="/" onClick={() => setIsMenuOpen(false)}>Inicio</Link>
