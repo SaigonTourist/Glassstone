@@ -3,6 +3,7 @@ import Navbar from './components/Navbar.jsx';
 import ItemListContainer from './components/ItemListContainer.jsx';
 import ItemDetailContainer from './components/ItemDetailContainer.jsx';
 import SearchResults from './components/SearchResults.jsx';
+import Footer from './components/Footer.jsx';
 
 // Componente para página 404
 const NotFound = () => {
@@ -34,22 +35,26 @@ const App = () => {
       <div className="app">
         <Navbar />
         
-        <Routes>
-          {/* Ruta principal - todos los productos */}
-          <Route path="/" element={<ItemListContainer />} />
-          
-          {/* Ruta para categorías - productos filtrados */}
-          <Route path="/category/:categoryId" element={<ItemListContainer />} />
-          
-          {/* Ruta para búsqueda */}
-          <Route path="/search/:searchTerm" element={<SearchResults />} />
-          
-          {/* Ruta para detalle de producto */}
-          <Route path="/item/:id" element={<ItemDetailContainer />} />
-          
-          {/* Ruta 404 - debe ir al final */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <div style={{ flex: 1 }}>
+          <Routes>
+            {/* Ruta principal - todos los productos */}
+            <Route path="/" element={<ItemListContainer />} />
+            
+            {/* Ruta para categorías - productos filtrados */}
+            <Route path="/category/:categoryId" element={<ItemListContainer />} />
+            
+            {/* Ruta para búsqueda */}
+            <Route path="/search/:searchTerm" element={<SearchResults />} />
+            
+            {/* Ruta para detalle de producto */}
+            <Route path="/item/:id" element={<ItemDetailContainer />} />
+            
+            {/* Ruta 404 - debe ir al final */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+
+        <Footer />
       </div>
     </BrowserRouter>
   );
