@@ -247,7 +247,7 @@ const ItemDetail = ({ product, loading }) => {
             </div>
           </div>
 
-          {/* Tabs de información */}
+          {/* Tabs */}
           <div className="info-tabs-premium">
             <div className="tab-buttons">
               <button 

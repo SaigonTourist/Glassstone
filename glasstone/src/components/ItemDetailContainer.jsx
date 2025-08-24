@@ -24,7 +24,7 @@ const ItemDetailContainer = () => {
     };
 
     loadProduct();
-  }, [id]); // Se ejecuta cada vez que cambia el ID en la URL
+  }, [id]);
 
   return <ItemDetail product={product} loading={loading} />;
 };
